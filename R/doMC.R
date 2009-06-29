@@ -15,21 +15,38 @@
 #
 
 # this explicitly registers a multicore parallel backend
-registerDoMC <- function() {
-  setDoPar(doMC, NULL, info)
+registerDoMC <- function(cores=NULL) {
+  setDoPar(doMC, cores, info)
+}
+
+# internal function that determines the number of workers to use
+workers <- function(cores) {
+  if (!is.null(cores)) {
+    # use the number specified when registering doMC
+    cores
+  } else {
+    cores <- getOption('cores')
+    if (!is.null(cores))
+      # use the number specified via the 'cores' option
+      cores
+    else
+      # use the number detected by multicore
+      multicore:::volatile$detectedCores
+  }
 }
 
 # passed to setDoPar via registerDoMC, and called by getDoParWorkers, etc
 info <- function(data, item) {
   switch(item,
-         workers= multicore:::volatile$detectedCores,
+         workers=workers(data),
          name='doMC',
          version=packageDescription('doMC', fields='Version'),
          NULL)
 }
 
 doMC <- function(obj, expr, envir, data) {
-  # note that the "data" argument isn't used
+  cores <- workers(data)
+
   if (!inherits(obj, 'foreach'))
     stop('obj must be a foreach object')
 
@@ -44,7 +61,7 @@ doMC <- function(obj, expr, envir, data) {
   # execute the tasks
   results <- mclapply(argsList, function(args) {
     eval(expr, envir=args, enclos=envir)
-  })
+  }, mc.cores=cores)
 
   # call the accumulator with all of the results
   tryCatch(accumulator(results, seq(along=results)), error=function(e) {
