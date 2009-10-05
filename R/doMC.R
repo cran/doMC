@@ -45,6 +45,10 @@ info <- function(data, item) {
 }
 
 doMC <- function(obj, expr, envir, data) {
+  # set the default mclapply options
+  preschedule <- TRUE
+  set.seed <- TRUE
+  silent <- FALSE
   cores <- workers(data)
 
   if (!inherits(obj, 'foreach'))
@@ -58,10 +62,62 @@ doMC <- function(obj, expr, envir, data) {
   for (p in obj$packages)
     library(p, character.only=TRUE)
 
+  # check for multicore-specific options
+  options <- obj$options$multicore
+  if (!is.null(options)) {
+    nms <- names(options)
+    recog <- nms %in% c('preschedule', 'set.seed', 'silent', 'cores')
+    if (any(!recog))
+      warning(sprintf('ignoring unrecognized multicore option(s): %s',
+                      paste(nms[!recog], collapse=', ')), call.=FALSE)
+
+    if (!is.null(options$preschedule)) {
+      if (!is.logical(options$preschedule) || length(options$preschedule) != 1) {
+        warning('preschedule must be logical value', call.=FALSE)
+      } else {
+        if (obj$verbose)
+          cat(sprintf('setting mc.preschedule option to %d\n', options$preschedule))
+        preschedule <- options$preschedule
+      }
+    }
+
+    if (!is.null(options$set.seed)) {
+      if (!is.logical(options$set.seed) || length(options$set.seed) != 1) {
+        warning('set.seed must be logical value', call.=FALSE)
+      } else {
+        if (obj$verbose)
+          cat(sprintf('setting mc.set.seed option to %d\n', options$set.seed))
+        set.seed <- options$set.seed
+      }
+    }
+
+    if (!is.null(options$silent)) {
+      if (!is.logical(options$silent) || length(options$silent) != 1) {
+        warning('silent must be logical value', call.=FALSE)
+      } else {
+        if (obj$verbose)
+          cat(sprintf('setting mc.silent option to %d\n', options$silent))
+        silent <- options$silent
+      }
+    }
+
+    if (!is.null(options$cores)) {
+      if (!is.numeric(options$cores) || length(options$cores) != 1 ||
+          options$cores < 1) {
+        warning('cores must be numeric value >= 1', call.=FALSE)
+      } else {
+        if (obj$verbose)
+          cat(sprintf('setting mc.cores option to %d\n', options$cores))
+        cores <- options$cores
+      }
+    }
+  }
+
   # execute the tasks
-  results <- mclapply(argsList, function(args) {
-    eval(expr, envir=args, enclos=envir)
-  }, mc.cores=cores)
+  FUN <- function(args) eval(expr, envir=args, enclos=envir)
+  results <- mclapply(argsList, FUN, mc.preschedule=preschedule,
+                      mc.set.seed=set.seed, mc.silent=silent,
+                      mc.cores=cores)
 
   # call the accumulator with all of the results
   tryCatch(accumulator(results, seq(along=results)), error=function(e) {

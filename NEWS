@@ -1,0 +1,17 @@
+ NEWS/ChangeLog for doMC
+-------------------------
+
+1.2.0   2009-10-05
+    o   added support for all of the mclapply options via the foreach
+        .options.multicore argument
+    o   added a "Getting Started" vignette.
+    o   added examples directory
+
+
+1.1.1   2009-06-29
+    o   added cores option to registerDoMC
+    o   fixed bug that caused getDoParWorkers to report incorrect value
+
+
+1.1.0   2009-06-26
+    o   initial public release
