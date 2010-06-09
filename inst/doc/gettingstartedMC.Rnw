@@ -62,7 +62,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \title{Getting Started with doMC and foreach}
-\author{Steve Weston \\ steve@revolution-computing.com}
+\author{Steve Weston \\ doc@revolutionanalytics.com}
 
 
 \begin{document}
@@ -93,8 +93,8 @@ isn't stable yet.}  Also, \texttt{multicore} only runs tasks on a single
 computer, not a cluster of computers.\footnote{You can use the
 \texttt{doNWS} package to execute on a cluster using the \texttt{nws}
 package.  \texttt{doNWS} also has good support for Windows.
-\texttt{doNWS} is available from REvolution Computing:
-\url{http://www.revolution-computing.com/products/parallel-r.php}.} That
+\texttt{doNWS} is available from Revolution Analytics:
+\url{http://www.revolutionanalytics.com/products/parallel-r.php}.} That
 means that it is pointless to use \texttt{doMC} and \texttt{multicore}
 on a machine with only one processor with a single core.  To get a speed
 improvement, it must run on a machine with multiple processors, multiple
