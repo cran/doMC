@@ -44,6 +44,12 @@ info <- function(data, item) {
          NULL)
 }
 
+comp <- if (getRversion() < "2.13.0") {
+  function(expr, ...) expr
+} else {
+  compiler::compile
+}
+
 doMC <- function(obj, expr, envir, data) {
   # set the default mclapply options
   preschedule <- TRUE
@@ -113,8 +119,12 @@ doMC <- function(obj, expr, envir, data) {
     }
   }
 
+  # define the "worker" function, compiling expr if possible
+  c.expr <- comp(expr, env=envir, options=list(suppressUndefined=TRUE))
+  FUN <- function(args) tryCatch(eval(c.expr, envir=args, enclos=envir),
+                                 error=function(e) e)
+
   # execute the tasks
-  FUN <- function(args) tryCatch(eval(expr, envir=args, enclos=envir), error=function(e) e)
   results <- mclapply(argsList, FUN, mc.preschedule=preschedule,
                       mc.set.seed=set.seed, mc.silent=silent,
                       mc.cores=cores)

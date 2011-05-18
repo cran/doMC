@@ -1,6 +1,19 @@
  NEWS/ChangeLog for doMC
 -------------------------
 
+1.2.2   2011-05-16
+    o   Added support for the compiler package in R 2.13.0
+    o   Enhanced unit tests to enable running them under R CMD check.
+
+
+1.2.1   2010-01-25
+    o   Changed license to GPL-2
+    o   Error handling for the doMC backend should now be correct.  If 
+        .errorhandling is set to anything other than 'stop', it should return 
+        an array containing the results of all iterations which did not cause 
+        errors. (From a bug report by Brian Peterson)
+
+
 1.2.0   2009-10-05
     o   added support for all of the mclapply options via the foreach
         .options.multicore argument
