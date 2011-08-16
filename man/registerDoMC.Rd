@@ -6,13 +6,16 @@ The \code{registerDoMC} function is used to register the multicore
 parallel backend with the \code{foreach} package.
 }
 \usage{
-registerDoMC(cores=NULL)
+registerDoMC(cores=NULL, \dots)
 }
 \arguments{
   \item{cores}{The number of cores to use for parallel execution. If not
   specified, the number of cores is set to the value of 
   \code{options("cores")}, if specified, or to the number of cores detected
   by the \code{multicore} package.}
+  \item{\dots}{Package options.  Currently, only the \code{nocompile} option
+  is supported.  If \code{nocompile} is set to \code{TRUE}, compiler
+  support is disabled.}
 }
 \details{
 The \code{multicore} package by Simon Urbanek provides functions for parallel

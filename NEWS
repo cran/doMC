@@ -1,6 +1,11 @@
  NEWS/ChangeLog for doMC
 -------------------------
 
+1.2.3   2011-08-15
+    o   Added support for package options via registerDoMC
+    o   Added package option "nocompile" to disable compiler support
+
+
 1.2.2   2011-05-16
     o   Added support for the compiler package in R 2.13.0
     o   Enhanced unit tests to enable running them under R CMD check.

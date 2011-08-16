@@ -1,0 +1,14 @@
+5167f4800b4cceadf7050a9958dd9359 *DESCRIPTION
+a1da03f460d5f89a80a14a81a3a47e1a *NAMESPACE
+ef9befff98896dae0b19af784d97dbab *NEWS
+e4d591bf97c827480240685518fa4291 *R/doMC.R
+c09a9ac7a720c8ceb98ae815a5542092 *demo/00Index
+b6ddb31150961d04b467a413affde041 *demo/sincMC.R
+f74aa35c42109b50eda97d75117176c5 *inst/doc/gettingstartedMC.Rnw
+6cc6a7bed2dd977684ff18049895d518 *inst/doc/gettingstartedMC.pdf
+794817093fdd85b71f892689a8ffe99d *inst/examples/bootMC.R
+ccb40b21ecc17bd71f764d7d67da9a7d *inst/unitTests/options.R
+59f11a4ad61aea4c525507b6ac0ae4b2 *inst/unitTests/runTestSuite.sh
+9cb44a45f1e74f5de712bfe12c89cd05 *man/doMC-package.Rd
+2e504ad8f6454a1f46764cea7ad5f7fc *man/registerDoMC.Rd
+8f4fe6c00368b305dec6a0f0e5e39a1e *tests/doRUnit.R

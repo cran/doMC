@@ -14,8 +14,42 @@
 # http://www.r-project.org/Licenses/
 #
 
+.options <- new.env(parent=emptyenv())
+
 # this explicitly registers a multicore parallel backend
-registerDoMC <- function(cores=NULL) {
+registerDoMC <- function(cores=NULL, ...) {
+  opts <- list(...)
+  optnames <- names(opts)
+  if (is.null(optnames))
+    optnames <- rep('', length(opts))
+
+  # filter out unnamed arguments with a warning
+  unnamed <- ! nzchar(optnames)
+  if (any(unnamed)) {
+    warning('ignoring doMC package option(s) specified with unnamed argument')
+    opts <- opts[!unnamed]
+    optnames <- optnames[!unnamed]
+  }
+
+  # filter out unrecognized options with a warning
+  recog <- optnames %in% c('nocompile')
+  if (any(!recog)) {
+    warning(sprintf('ignoring unrecognized doMC package option(s): %s',
+                    paste(optnames[!recog], collapse=', ')), call.=FALSE)
+    opts <- opts[recog]
+    optnames <- optnames[recog]
+  }
+
+  # clear .options in case registerDoMC is called multiple times
+  old.optnames <- ls(.options, all.names=TRUE)
+  rm(list=old.optnames, pos=.options)
+
+  # set new options
+  for (i in seq(along=opts)) {
+    assign(optnames[i], opts[[i]], pos=.options)
+  }
+
+  # register multicore backend
   setDoPar(doMC, cores, info)
 }
 
@@ -47,7 +81,12 @@ info <- function(data, item) {
 comp <- if (getRversion() < "2.13.0") {
   function(expr, ...) expr
 } else {
-  compiler::compile
+  function(expr, ...) {
+    if (isTRUE(.options$nocompile))
+      expr
+    else
+      compiler::compile(expr, ...)
+  }
 }
 
 doMC <- function(obj, expr, envir, data) {
