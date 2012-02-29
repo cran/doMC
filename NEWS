@@ -1,6 +1,11 @@
  NEWS/ChangeLog for doMC
 -------------------------
 
+1.2.4   2012-02-24
+    o   Modified default cores computation to use parallel package tools 
+	    from R 2.14.0 and later if possible.
+	o   Modified doRUnit.R to use two cores when run during R CMD check.
+	
 1.2.3   2011-08-15
     o   Added support for package options via registerDoMC
     o   Added package option "nocompile" to disable compiler support

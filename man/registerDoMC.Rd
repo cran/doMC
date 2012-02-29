@@ -11,8 +11,9 @@ registerDoMC(cores=NULL, \dots)
 \arguments{
   \item{cores}{The number of cores to use for parallel execution. If not
   specified, the number of cores is set to the value of 
-  \code{options("cores")}, if specified, or to the number of cores detected
-  by the \code{multicore} package.}
+  \code{options("cores")}, if specified, or to approximately half
+  the number of cores detected
+  by the \code{parallel} or \code{multicore} package.}
   \item{\dots}{Package options.  Currently, only the \code{nocompile} option
   is supported.  If \code{nocompile} is set to \code{TRUE}, compiler
   support is disabled.}

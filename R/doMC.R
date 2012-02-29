@@ -60,12 +60,22 @@ workers <- function(cores) {
     cores
   } else {
     cores <- getOption('cores')
-    if (!is.null(cores))
+    if (!is.null(cores)) {
       # use the number specified via the 'cores' option
       cores
-    else
-      # use the number detected by multicore
-      multicore:::volatile$detectedCores
+    } else {
+      # use the number detected by parallel (R > 2.14.0) or multicore
+	  if (utils::compareVersion(paste(R.version$major, R.version$minor, sep = "."), "2.14.0") >= 0) {
+		cores <- parallel::detectCores()
+	  } else {
+		cores <- multicore:::volatile$detectedCores
+	  }
+	  if (cores > 2) {
+        # try to use about half the cores
+        cores <- ceiling(cores/2)
+      }
+      cores
+	}
   }
 }
 
