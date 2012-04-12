@@ -1,14 +1,15 @@
-e6a99c6fca3fe572d37404647cfbc387 *DESCRIPTION
+bfbbde4faa52e1c84ceda678f8369a3c *DESCRIPTION
 a1da03f460d5f89a80a14a81a3a47e1a *NAMESPACE
 7b0721ad04673b99d98536c20c5eaaf8 *NEWS
 409d2418ff268f6e98df3f37f2cf6730 *R/doMC.R
 c09a9ac7a720c8ceb98ae815a5542092 *demo/00Index
 b6ddb31150961d04b467a413affde041 *demo/sincMC.R
 f74aa35c42109b50eda97d75117176c5 *inst/doc/gettingstartedMC.Rnw
-721b56c1fe569382888621f59e75a77d *inst/doc/gettingstartedMC.pdf
+44d9f76628d393dbade0f5aefb910463 *inst/doc/gettingstartedMC.pdf
 794817093fdd85b71f892689a8ffe99d *inst/examples/bootMC.R
 ccb40b21ecc17bd71f764d7d67da9a7d *inst/unitTests/options.R
 59f11a4ad61aea4c525507b6ac0ae4b2 *inst/unitTests/runTestSuite.sh
 9cb44a45f1e74f5de712bfe12c89cd05 *man/doMC-package.Rd
 d566b4b712ad6fe50c76f599f4702982 *man/registerDoMC.Rd
 c5f588d9abdde0c24dab0d36c163e497 *tests/doRUnit.R
+f74aa35c42109b50eda97d75117176c5 *vignettes/gettingstartedMC.Rnw
