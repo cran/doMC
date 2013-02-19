@@ -64,18 +64,14 @@ workers <- function(cores) {
       # use the number specified via the 'cores' option
       cores
     } else {
-      # use the number detected by parallel (R > 2.14.0) or multicore
-	  if (utils::compareVersion(paste(R.version$major, R.version$minor, sep = "."), "2.14.0") >= 0) {
-		cores <- parallel::detectCores()
-	  } else {
-		cores <- multicore:::volatile$detectedCores
-	  }
-	  if (cores > 2) {
+    # use the number detected by parallel 
+      cores <- parallel::detectCores()
+      if (cores > 2) {
         # try to use about half the cores
-        cores <- ceiling(cores/2)
-      }
+          cores <- ceiling(cores/2)
+        }
       cores
-	}
+    }
   }
 }
 
@@ -88,16 +84,13 @@ info <- function(data, item) {
          NULL)
 }
 
-comp <- if (getRversion() < "2.13.0") {
-  function(expr, ...) expr
-} else {
-  function(expr, ...) {
+comp <- function(expr, ...) {
     if (isTRUE(.options$nocompile))
       expr
     else
       compiler::compile(expr, ...)
-  }
 }
+
 
 doMC <- function(obj, expr, envir, data) {
   # set the default mclapply options

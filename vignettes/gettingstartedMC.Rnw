@@ -84,12 +84,13 @@ issue a warning that it is running sequentially if no parallel backend
 has been registered.  It will only issue this warning once, however.}
 
 The \texttt{doMC} package acts as an interface between \texttt{foreach}
-and the \texttt{multicore} package, which was written by Simon Urbanek.
-\texttt{multicore} currently only works with operating systems that
+and the \texttt{multicore} functionality of the parallel package,
+originally written by Simon Urbanek and incorporated into parallel
+for R 2.14.0. The \texttt{multicore} functionality
+currently only works with operating systems that
 support the \texttt{fork} system call (which means that Windows isn't
-supported).\footnote{At the time of this writing, there is an
-experimental version of \texttt{multicore} that supports Windows, but it
-isn't stable yet.}  Also, \texttt{multicore} only runs tasks on a single
+supported).
+Also, \texttt{multicore} only runs tasks on a single
 computer, not a cluster of computers.\footnote{You can use the
 \texttt{doNWS} package to execute on a cluster using the \texttt{nws}
 package.  \texttt{doNWS} also has good support for Windows.
@@ -102,7 +103,7 @@ cores, or both.
 
 \section{A word of caution}
 
-Because the \texttt{multicore} package starts its workers using
+Because the \texttt{multicore} functionality starts its workers using
 \texttt{fork} without doing a subsequent \texttt{exec}, it has some
 limitations.  Some operations cannot be performed properly by forked
 processes.  For example, connection objects very likely won't work.

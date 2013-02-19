@@ -7,7 +7,7 @@ The doMC Package
 }
 \description{
 The doMC package provides a parallel backend for the foreach/\%dopar\%
-function using Simon Urbanek's multicore package.
+function using the multicore functionality of the parallel package.
 }
 \details{
 Further information is available in the following help topics:
