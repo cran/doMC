@@ -55,6 +55,9 @@ registerDoMC <- function(cores=NULL, ...) {
 
 # internal function that determines the number of workers to use
 workers <- function(cores) {
+  if (identical(.Platform$OS.type, "windows")){
+	return(1)
+  }
   if (!is.null(cores)) {
     # use the number specified when registering doMC
     cores
