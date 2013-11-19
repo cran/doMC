@@ -174,6 +174,20 @@ doMC <- function(obj, expr, envir, data) {
                       mc.set.seed=set.seed, mc.silent=silent,
                       mc.cores=cores)
 
+  # check for errors before calling combine function if error handling
+  # is 'stop' so we can exit early
+  if (identical(obj$errorHandling, 'stop')) {
+    errorIndex <- 1
+    for (r in results) {
+      if (inherits(r, 'error')) {
+        msg <- sprintf('task %d failed - "%s"', errorIndex,
+                       conditionMessage(r))
+        stop(simpleError(msg, call=expr))
+      }
+      errorIndex <- errorIndex + 1
+    }
+  }
+
   # call the accumulator with all of the results
   tryCatch(accumulator(results, seq(along=results)), error=function(e) {
     cat('error calling combine function:\n')
