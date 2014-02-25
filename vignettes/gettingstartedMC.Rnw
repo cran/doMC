@@ -84,18 +84,14 @@ issue a warning that it is running sequentially if no parallel backend
 has been registered.  It will only issue this warning once, however.}
 
 The \texttt{doMC} package acts as an interface between \texttt{foreach}
-and the \texttt{multicore} functionality of the parallel package,
-originally written by Simon Urbanek and incorporated into parallel
+and the \texttt{multicore} functionality of the \texttt{parallel} package,
+originally written by Simon Urbanek and incorporated into \texttt{parallel}
 for R 2.14.0. The \texttt{multicore} functionality
 currently only works with operating systems that
 support the \texttt{fork} system call (which means that Windows isn't
 supported).
 Also, \texttt{multicore} only runs tasks on a single
-computer, not a cluster of computers.\footnote{You can use the
-\texttt{doNWS} package to execute on a cluster using the \texttt{nws}
-package.  \texttt{doNWS} also has good support for Windows.
-\texttt{doNWS} is available from Revolution Analytics:
-\url{http://www.revolutionanalytics.com/products/parallel-r.php}.} That
+computer, not a cluster of computers. That
 means that it is pointless to use \texttt{doMC} and \texttt{multicore}
 on a machine with only one processor with a single core.  To get a speed
 improvement, it must run on a machine with multiple processors, multiple
@@ -111,10 +107,7 @@ In some cases, this could cause an object to become corrupted, and
 the R session to crash.
 
 In addition, it usually isn't safe to run \texttt{doMC} and
-\texttt{multicore} from a GUI environment.  In particular, it is not
-safe to use \texttt{doMC} from \texttt{R.app} on Mac OS X.  Instead, you
-should use \texttt{doMC} from a terminal session, starting R from the
-command line.
+\texttt{multicore} from a GUI environment.  
 
 \section{Registering the \texttt{doMC} parallel backend}
 
@@ -126,8 +119,8 @@ equal to the total number of cores on the machine.  You don't need to
 specify a value for it, however.  By default, the \texttt{multicore}
 package will use the value of the ``cores'' option, as specified with
 the standard ``options'' function.  If that isn't set, then
-\texttt{multicore} will try to detect the number of cores, and use that
-many workers.
+\texttt{multicore} will try to detect the number of cores, and use 
+approximately half that many workers.
 
 Remember: unless \texttt{registerDoMC} is called, \texttt{foreach} will
 {\em not} run in parallel.  Simply loading the \texttt{doMC} package is
@@ -140,7 +133,7 @@ it with \texttt{foreach}:
 
 <<loadLibs>>=
 library(doMC)
-registerDoMC()
+registerDoMC(2)
 foreach(i=1:3) %dopar% sqrt(i)
 @
 
@@ -276,19 +269,24 @@ value of ``cores'' was specified when \texttt{doMC} was registered, you
 can also change this value dynamically using the \texttt{options}
 function:
 
-<<coreoptions>>=
-options(cores=2)
-getDoParWorkers()
-options(cores=3)
-getDoParWorkers()
-@
+\begin{verbatim}
+> registerDoMC()
+> getDoParWorkers()
+[1] 3
+> options(cores=2)
+> getDoParWorkers()
+[1] 2
+> options(cores=3)
+> getDoParWorkers()
+[1] 3
+\end{verbatim}
 
 If you did specify the number of cores when registering \texttt{doMC},
 the ``cores'' option is ignored:
 
 <<coreoptions2>>=
-registerDoMC(4)
-options(cores=2)
+registerDoMC(2)
+options(cores=4)
 getDoParWorkers()
 @
 

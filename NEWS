@@ -1,6 +1,13 @@
  NEWS/ChangeLog for doMC
 -------------------------
 
+1.3.3   2014-02-25
+        Modified so that vignette uses no more than two workers.
+        
+1.3.2   2013-11-18
+        Modified to check for errors early to avoid calling combine function
+        when errors occur. 
+        
 1.3.1   2013-10-28
     o   Added iterators, parallel, and utils to NAMESPACE imports.
 	o   Removed restriction to Unix, since parallel exists on Windows.
