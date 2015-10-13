@@ -1,13 +1,13 @@
-25dbf51bd987ae06a556a5b7e84dc5ec *DESCRIPTION
+a93a8e6051b93c2f0b1854918e56f386 *DESCRIPTION
 7fe3d7214125288822cd4472ecc6c4a4 *NAMESPACE
 feeb8fb6dd6f6b8426d2450f60348093 *NEWS
 32dfc0390122f8f3211a9ad035402c3b *R/doMC.R
-bdd33ab41736a6b4039ba4a285187a37 *build/vignette.rds
+f3b6a0af4d22fdd6d4e48d1bd2fc96d2 *build/vignette.rds
 c09a9ac7a720c8ceb98ae815a5542092 *demo/00Index
 b6ddb31150961d04b467a413affde041 *demo/sincMC.R
 64cace2ee0f1986d1baf44199b483faa *inst/doc/gettingstartedMC.R
 0b3be19ecbd467c465d6264bf6768e7e *inst/doc/gettingstartedMC.Rnw
-17d60bc17ec2410b9d4301357d1f34aa *inst/doc/gettingstartedMC.pdf
+f43dfa3d074de6a41148b8a908a709fa *inst/doc/gettingstartedMC.pdf
 794817093fdd85b71f892689a8ffe99d *inst/examples/bootMC.R
 ccb40b21ecc17bd71f764d7d67da9a7d *inst/unitTests/options.R
 59f11a4ad61aea4c525507b6ac0ae4b2 *inst/unitTests/runTestSuite.sh
