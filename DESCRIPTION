@@ -1,8 +1,8 @@
 Package: doMC
 Type: Package
 Title: Foreach Parallel Adaptor for 'parallel'
-Version: 1.3.6
-Authors@R: c(person("Hong", "Ooi", role="cre", email="hongooi@microsoft.com"),
+Version: 1.3.7
+Authors@R: c(person("Michelle", "Wallig", role="cre", email="Michelle.Wallig@microsoft.com"),
              person("Revolution", "Analytics", role=c("aut", "cph")),
 			 person("Steve", "Weston", role="aut"))
 Description: Provides a parallel backend for the %dopar% function using
@@ -13,11 +13,11 @@ Imports: utils
 Enhances: compiler, RUnit
 License: GPL-2
 NeedsCompilation: no
-Packaged: 2019-07-16 22:48:17 UTC; richcala
-Author: Hong Ooi [cre],
+Packaged: 2020-10-14 19:41:02 UTC; hongo
+Author: Michelle Wallig [cre],
   Revolution Analytics [aut, cph],
   Steve Weston [aut]
-Maintainer: Hong Ooi <hongooi@microsoft.com>
+Maintainer: Michelle Wallig <Michelle.Wallig@microsoft.com>
 OS_type: unix
 Repository: CRAN
-Date/Publication: 2019-07-27 21:50:02 UTC
+Date/Publication: 2020-10-14 23:40:07 UTC
